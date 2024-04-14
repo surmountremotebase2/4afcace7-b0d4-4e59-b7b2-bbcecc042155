@@ -21,6 +21,10 @@ class KevinStrategy(Strategy):
     def run(self, data):
     allocation_dict = {i: 1/len(self.tickers) for i in self.tickers}
     d = data["ohlcv"]
+    for ticker, alloc in allocation_dict:
+        if buy_5l_close_at(data, ticker):
+            if ()
+
     if buy_5l_close_at(data)
     # WRITE YOUR STRATEGY LOGIC HERE
     return TargetAllocation(allocation_dict)
