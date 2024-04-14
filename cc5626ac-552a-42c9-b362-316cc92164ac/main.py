@@ -12,7 +12,11 @@ class KevinStrategy(Strategy):
 
     @property
     def assets(self):
-        return self.tickers
+        assets = [];
+        for ticker in self.tickers:
+            assets.append(ticker);
+            assets.append("S"+ticker);
+        return assets
 
     @property
     def data(self):
@@ -23,7 +27,14 @@ class KevinStrategy(Strategy):
     d = data["ohlcv"]
     for ticker, alloc in allocation_dict:
         if buy_5l_close_at(data, ticker):
-            if ()
+            if data["holdings"]["S"+ticker] > 0:
+                log("covering " + ticker);
+                stake = min(1, data["holdings"]["S" + ticker]-0.1)
+            if data["holdings"][ticker] >= 0:
+                log("going long " + ticker)
+                stake = min(1, data["holdings"][ticker]+0.1)
+            else:
+
 
     if buy_5l_close_at(data)
     # WRITE YOUR STRATEGY LOGIC HERE
