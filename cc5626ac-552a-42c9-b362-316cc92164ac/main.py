@@ -97,16 +97,16 @@ class KevinStrategy(Strategy):
 
 
     # trueinrow(C < C1, 5) = 5 and H > H1 and X > L1 + ((H1 - L1) / 2) with X = signal threshold
-    def sell_5h_close_at(data):
-        close1 = data.Close[-2]
-        close2 = data.Close[-3]
-        close3 = data.Close[-4]
-        close4 = data.Close[-5]
-        close5 = data.Close[-6]
-        low = data.Low[-1]
-        low1 = data.Low[-2]
-        high1 = data.High[-2]
-        high = data.High[-1]
+    def sell_5h_close_at(data, ticker):
+        close1 = data[-2][ticker]["close"]
+        close2 = data[-3][ticker]["close"]
+        close3 = data[-4][ticker]["close"]
+        close4 = data[-5][ticker]["close"]
+        close5 = data[-6][ticker]["close"]
+        low = data[-1][ticker]["low"]
+        low1 = data[-2][ticker]["low"]
+        high1 = data[-2][ticker]["high"]
+        high = data[-1][ticker]["high"]
 
         if close1 >= close2 and close1 >= close3 and close1 >= close4 and close1 >= close5 and high > high1:
             threshold = high1 - ((high1 - low1) / 2)
@@ -120,14 +120,14 @@ class KevinStrategy(Strategy):
 
 
     # h = maxh5 and X < H1 - ((H1 - L1) / 2) with X = signal threshold
-    def sell_5h_high_at(data):
-        high = data.High[-1]
-        low = data.Low[-1]
-        high1 = data.High[-2]
-        high2 = data.High[-3]
-        high3 = data.High[-4]
-        high4 = data.High[-5]
-        low1 = data.Low[-2]
+    def sell_5h_high_at(data, ticker):
+        high = data[-1][ticker]["high"]
+        low = data[-1][ticker]["low"]
+        high1 = data[-2][ticker]["high"]
+        high2 = data[-3][ticker]["high"]
+        high3 = data[-4][ticker]["high"]
+        high4 = data[-5][ticker]["high"]
+        low1 = data[-2][ticker]["low"]
 
         if high >= high1 and high >= high2 and high >= high3 and high >= high4:
             threshold = high1 - ((high1 - low1) / 2)
