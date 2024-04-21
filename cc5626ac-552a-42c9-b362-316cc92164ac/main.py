@@ -23,90 +23,90 @@ class KevinStrategy(Strategy):
         return self.data_list
 
     def run(self, data):
-    allocation_dict = {i: 1/len(self.tickers) for i in self.tickers}
-    d = data["ohlcv"]
-    for ticker, alloc in allocation_dict:
-        def threshold =  buy_5l_close_at(data, ticker);
-        if threshold > -1.0:
-            if data["holdings"][ticker] >= 0:
-                log("[buy_5l_close_at] buying " + ticker + " at: " + data[-1]["close"] + " (signal threshold: " + threshold + ")");
-                stake = min(1, data["holdings"][ticker]+0.1)
-                log("[buy_5l_close_at] new stake for " + ticker + ": " + stake);
-            else:
+        allocation_dict = {i: 1/len(self.tickers) for i in self.tickers}
+        d = data["ohlcv"]
+        for ticker, alloc in allocation_dict:
+            def threshold =  buy_5l_close_at(data, ticker);
+            if threshold > -1.0:
+                if data["holdings"][ticker] >= 0:
+                    log("[buy_5l_close_at] buy " + ticker + " at: " + data[-1]["close"] + " (signal threshold: " + threshold + ")");
+                    stake = min(1, data["holdings"][ticker]+0.1)
+                    log("[buy_5l_close_at] new stake for " + ticker + ": " + stake);
+                else:
+                    # shorting seemingly not supported
+                return;
+
+            threshold = buy_5l_low_at(data, ticker):
+            if threshold > -1.0:
+                if data["holdings"][ticker] >= 0:
+                    log("[buy_5l_low_at] buy " + ticker + " at: " + data[-1]["close"] + " (signal threshold: " + threshold + ")");
+                    stake = min(1, data["holdings"][ticker]+0.1)
+                    log("[buy_5l_low_at] new stake for " + ticker + ": " + stake);
+                else:
+                    # shorting seemingly not supported
+                return;
+
+            threshold = sell_5h_close_at(data, ticker);
+            if threshold > -1.0:
+                if data["holdings"][ticker] > 0:
+                    log("[sell_5h_close_at] sell " + ticker + " at: " + data[-1]["close"] + " (signal threshold: " + threshold + ")");
+                    stake = min(1, data["holdings"][ticker]-0.1)
+                    log("[sell_5h_close_at] new stake for " + ticker + ": " + stake);
+                else:
                 # shorting seemingly not supported
-            return;
+                return;
 
-        threshold = buy_5l_low_at(data, ticker):
-        if threshold > -1.0:
-            if data["holdings"][ticker] >= 0:
-                log("[buy_5l_low_at] buying " + ticker + " at: " + data[-1]["close"] + " (signal threshold: " + threshold + ")");
-                stake = min(1, data["holdings"][ticker]+0.1)
-                log("[buy_5l_low_at] new stake for " + ticker + ": " + stake);
-            else:
+            threshold = sell_5h_high_at(data, ticker);
+            if threshold > -1.0:
+                if data["holdings"][ticker] > 0:
+                    log("[sell_5h_high_at] sell " + ticker + " at: " + data[-1]["close"] + " (signal threshold: " + threshold + ")");
+                    stake = min(1, data["holdings"][ticker]-0.1)
+                    log("[sell_5h_high_at] new stake for " + ticker + ": " + stake);
+                else:
                 # shorting seemingly not supported
-            return;
 
-        threshold = sell_5h_close_at(data, ticker);
-        if threshold > -1.0:
-            if data["holdings"][ticker] > 0:
-                log("[sell_5h_close_at] selling " + ticker + " at: " + data[-1]["close"] + " (signal threshold: " + threshold + ")");
-                stake = min(1, data["holdings"][ticker]-0.1)
-                log("[sell_5h_close_at] new stake for " + ticker + ": " + stake);
-            else:
-               # shorting seemingly not supported
-            return;
+        # trueinrow(C < C1, 5) = 5 and L < L1 and X > L1 + ((H1 - L1) / 2) with X = signal threshold
+        def buy_5l_close_at(data, ticker):
+            close1 = data[-2][ticker]["close"]
+            close2 = data[-3][ticker]["close"]
+            close3 = data[-4][ticker]["close"]
+            close4 = data[-5][ticker]["close"]
+            close5 = data[-6][ticker]["close"]
+            high = data[-1][ticker]["high"]
+            low = data[-1][ticker]["low"]
+            low1 = data[-2][ticker]["high"]
+            high1 = data[-2][ticker]["high"]
 
-         threshold = sell_5h_high_at(data, ticker);
-        if threshold > -1.0:
-            if data["holdings"][ticker] > 0:
-                log("[sell_5h_high_at] selling " + ticker + " at: " + data[-1]["close"] + " (signal threshold: " + threshold + ")");
-                stake = min(1, data["holdings"][ticker]-0.1)
-                log("[sell_5h_high_at] new stake for " + ticker + ": " + stake);
-            else:
-               # shorting seemingly not supported
-
-    # trueinrow(C < C1, 5) = 5 and L < L1 and X > L1 + ((H1 - L1) / 2) with X = signal threshold
-    def buy_5l_close_at(data, ticker):
-        close1 = data[-2][ticker]["close"]
-        close2 = data[-3][ticker]["close"]
-        close3 = data[-4][ticker]["close"]
-        close4 = data[-5][ticker]["close"]
-        close5 = data[-6][ticker]["close"]
-        high = data[-1][ticker]["high"]
-        low = data[-1][ticker]["low"]
-        low1 = data[-2][ticker]["high"]
-        high1 = data[-2][ticker]["high"]
-
-        if close1 < close2 and close1 < close3 and close1 < close4 and close1 < close5 and low < low1:
-            threshold = low1 + ((high1 - low1) / 2)
-            # return threshold for confirmation if below day high
-            if high > threshold:
-                return threshold
+            if close1 < close2 and close1 < close3 and close1 < close4 and close1 < close5 and low < low1:
+                threshold = low1 + ((high1 - low1) / 2)
+                # return threshold for confirmation if below day high
+                if high > threshold:
+                    return threshold
+                else:
+                    return -1.0
             else:
                 return -1.0
-        else:
-            return -1.0
 
 
-    # l = minl5 and X > L1 + ((H1 - L1) / 2) with X = signal threshold
-    def buy_5l_low_at(data, ticker):
-        low = data[-1][ticker]["low"]
-        low1 = data[-2][ticker]["low"]
-        low2 = data[-3][ticker]["low"]
-        low3 = data[-4][ticker]["low"]
-        low4 = data[-5][ticker]["low"]
-        high = data[-1][ticker]["high"]
-        high1 = data[-2][ticker]["high"]
+        # l = minl5 and X > L1 + ((H1 - L1) / 2) with X = signal threshold
+        def buy_5l_low_at(data, ticker):
+            low = data[-1][ticker]["low"]
+            low1 = data[-2][ticker]["low"]
+            low2 = data[-3][ticker]["low"]
+            low3 = data[-4][ticker]["low"]
+            low4 = data[-5][ticker]["low"]
+            high = data[-1][ticker]["high"]
+            high1 = data[-2][ticker]["high"]
 
-        if low < low1 and low < low2 and low < low3 and low < low4:
-            threshold = low1 + ((high1 - low1) / 2)
-            # return threshold for confirmation if below day high
-            if high > threshold:
-                return threshold
+            if low < low1 and low < low2 and low < low3 and low < low4:
+                threshold = low1 + ((high1 - low1) / 2)
+                # return threshold for confirmation if below day high
+                if high > threshold:
+                    return threshold
+                else:
+                    return -1.0
             else:
                 return -1.0
-        else:
-            return -1.0
 
 
     # trueinrow(C < C1, 5) = 5 and H > H1 and X > L1 + ((H1 - L1) / 2) with X = signal threshold
