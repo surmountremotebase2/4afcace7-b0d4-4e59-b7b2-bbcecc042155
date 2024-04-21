@@ -1,6 +1,6 @@
 from surmount.base_class import Strategy, TargetAllocation
 
-class KevinStrategy(Strategy):
+class TradingStrategy(Strategy):
 
     def __init__(self):
         self.tickers = ["SPY", ...]
