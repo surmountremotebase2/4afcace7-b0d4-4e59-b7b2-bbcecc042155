@@ -122,8 +122,7 @@ class KevinStrategy(Strategy):
                 else:
                     # shorting seemingly not supported
                     continue;
-
-            threshold = buy_5l_low_at(data, ticker):
+            threshold = buy_5l_low_at(data, ticker);
             if threshold > -1.0:
                 if data["holdings"][ticker] >= 0:
                     log("[buy_5l_low_at] buy " + ticker + " at: " + data[-1]["close"] + " (signal threshold: " + threshold + ")");
