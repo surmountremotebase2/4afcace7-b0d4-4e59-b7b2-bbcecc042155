@@ -111,7 +111,7 @@ class TradingStrategy(Strategy):
             threshold = buy_5l_close_at(d, ticker);
             if threshold > -1.0:
                 if data["holdings"][ticker] >= 0:
-                    log("[buy_5l_close_at] buy " + ticker + " at: " + str(d[-1]["SPY"]["close"]) + " (signal threshold: " + threshold + ")");
+                    log("[buy_5l_close_at] buy " + ticker + " at: " + str(d[-1]["SPY"]["close"]) + " (signal threshold: " + str(threshold) + ")");
                     stake = min(1, data["holdings"][ticker]+0.1)
                     log("[buy_5l_close_at] new stake for " + ticker + ": " + stake);
                     continue;
@@ -121,7 +121,7 @@ class TradingStrategy(Strategy):
             threshold = buy_5l_low_at(d, ticker);
             if threshold > -1.0:
                 if data["holdings"][ticker] >= 0:
-                    log("[buy_5l_low_at] buy " + ticker + " at: " + str(d[-1]["SPY"]["close"]) + " (signal threshold: " + threshold + ")");
+                    log("[buy_5l_low_at] buy " + ticker + " at: " + str(d[-1]["SPY"]["close"]) + " (signal threshold: " + str(threshold) + ")");
                     stake = min(1, data["holdings"][ticker]+0.1)
                     log("[buy_5l_low_at] new stake for " + ticker + ": " + stake);
                     continue;
@@ -132,7 +132,7 @@ class TradingStrategy(Strategy):
             threshold = sell_5h_close_at(d, ticker);
             if threshold > -1.0:
                 if data["holdings"][ticker] > 0:
-                    log("[sell_5h_close_at] sell " + ticker + " at: " + str(d[-1]["SPY"]["close"]) + " (signal threshold: " + threshold + ")");
+                    log("[sell_5h_close_at] sell " + ticker + " at: " + str(d[-1]["SPY"]["close"]) + " (signal threshold: " + str(threshold) + ")");
                     stake = min(1, data["holdings"][ticker]-0.1)
                     log("[sell_5h_close_at] new stake for " + ticker + ": " + stake);
                     continue;
@@ -143,7 +143,7 @@ class TradingStrategy(Strategy):
             threshold = sell_5h_high_at(d, ticker);
             if threshold > -1.0:
                 if data["holdings"][ticker] > 0:
-                    log("[sell_5h_high_at] sell " + ticker + " at: " + str(d[-1]["SPY"]["close"]) + " (signal threshold: " + threshold + ")");
+                    log("[sell_5h_high_at] sell " + ticker + " at: " + str(d[-1]["SPY"]["close"]) + " (signal threshold: " + str(threshold) + ")");
                     stake = min(1, data["holdings"][ticker]-0.1)
                     log("[sell_5h_high_at] new stake for " + ticker + ": " + stake);
                     continue;
