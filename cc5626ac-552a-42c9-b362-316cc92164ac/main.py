@@ -113,11 +113,13 @@ class TradingStrategy(Strategy):
                 if data["holdings"][ticker] >= 0:
                     log("[buy_5l_close_at] buy " + ticker + " at: " + str(d[-1]["SPY"]["close"]) + " (signal threshold: " + str(threshold) + ")");
                     stake = min(1, data["holdings"][ticker]+0.1)
+                    data["holdings"][ticker] = stake;
                     log("[buy_5l_close_at] new stake for " + ticker + ": " + str(stake));
                     continue;
                 else:
                     # shorting seemingly not supported
                     continue;
+            log("KEEP LOOKING");
             threshold = buy_5l_low_at(d, ticker);
             if threshold > -1.0:
                 if data["holdings"][ticker] >= 0:
