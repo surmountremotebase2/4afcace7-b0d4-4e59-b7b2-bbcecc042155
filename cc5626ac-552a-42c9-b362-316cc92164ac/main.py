@@ -26,7 +26,7 @@ class KevinStrategy(Strategy):
         allocation_dict = {i: 1/len(self.tickers) for i in self.tickers}
         d = data["ohlcv"]
         for ticker, alloc in allocation_dict:
-            def threshold =  buy_5l_close_at(data, ticker);
+            def threshold = buy_5l_close_at(data, ticker);
             if threshold > -1.0:
                 if data["holdings"][ticker] >= 0:
                     log("[buy_5l_close_at] buy " + ticker + " at: " + data[-1]["close"] + " (signal threshold: " + threshold + ")");
