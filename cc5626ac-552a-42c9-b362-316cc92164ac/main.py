@@ -106,7 +106,7 @@ class TradingStrategy(Strategy):
     def run(self, data):
         allocation_dict = {i: 1/len(self.tickers) for i in self.tickers}
         d = data["ohlcv"]
-        for ticker, alloc in allocation_dict:
+        for ticker in self.tickers:
             threshold = buy_5l_close_at(d, ticker);
             if threshold > -1.0:
                 if data["holdings"][ticker] >= 0:
