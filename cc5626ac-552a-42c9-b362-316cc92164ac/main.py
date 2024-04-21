@@ -120,7 +120,6 @@ class TradingStrategy(Strategy):
                     # shorting seemingly not supported
                     continue;
 
-            log("KEEP LOOKING");
             threshold = buy_5l_low_at(d, ticker);
             if threshold > -1.0:
                 if data["holdings"][ticker] >= 0:
@@ -132,7 +131,6 @@ class TradingStrategy(Strategy):
                     # shorting seemingly not supported
                     continue;
 
-            log("KEEP LOOKING2");
             threshold = sell_5h_close_at(d, ticker);
             if threshold > -1.0:
                 if data["holdings"][ticker] >= 0:
@@ -144,7 +142,6 @@ class TradingStrategy(Strategy):
                     # shorting seemingly not supported
                     continue;
 
-            log("KEEP LOOKING3");
             threshold = sell_5h_high_at(d, ticker);
             if threshold > -1.0:
                 if data["holdings"][ticker] >= 0:
