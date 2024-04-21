@@ -121,7 +121,7 @@ class TradingStrategy(Strategy):
             threshold = buy_5l_low_at(d, ticker);
             if threshold > -1.0:
                 if data["holdings"][ticker] >= 0:
-                    log("[buy_5l_low_at] buy " + ticker + " at: " + data[-1]["close"] + " (signal threshold: " + threshold + ")");
+                    log("[buy_5l_low_at] buy " + ticker + " at: " + d[-1]["close"] + " (signal threshold: " + threshold + ")");
                     stake = min(1, data["holdings"][ticker]+0.1)
                     log("[buy_5l_low_at] new stake for " + ticker + ": " + stake);
                     continue;
