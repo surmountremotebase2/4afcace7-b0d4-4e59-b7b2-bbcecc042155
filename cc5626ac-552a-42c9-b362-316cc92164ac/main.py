@@ -15,7 +15,7 @@ class KevinStrategy(Strategy):
         assets = [];
         for ticker in self.tickers:
             assets.append(ticker);
-            assets.append("S"+ticker);
+            # shorting seemingly not supported
         return assets
 
     @property
@@ -26,46 +26,44 @@ class KevinStrategy(Strategy):
     allocation_dict = {i: 1/len(self.tickers) for i in self.tickers}
     d = data["ohlcv"]
     for ticker, alloc in allocation_dict:
-        if buy_5l_close_at(data, ticker):
-            if data["holdings"]["S"+ticker] > 0:
-                log("covering " + ticker);
-                stake = min(1, data["holdings"]["S" + ticker]-0.1)
+        def threshold =  buy_5l_close_at(data, ticker);
+        if threshold > -1.0:
             if data["holdings"][ticker] >= 0:
-                log("going long " + ticker)
+                log("[buy_5l_close_at] buying " + ticker + " at: " + data[-1]["close"] + " (signal threshold: " + threshold + ")");
                 stake = min(1, data["holdings"][ticker]+0.1)
+                log("[buy_5l_close_at] new stake for " + ticker + ": " + stake);
             else:
+                # shorting seemingly not supported
+            return;
 
+        threshold = buy_5l_low_at(data, ticker):
+        if threshold > -1.0:
+            if data["holdings"][ticker] >= 0:
+                log("[buy_5l_low_at] buying " + ticker + " at: " + data[-1]["close"]) + " (signal threshold: " + threshold + ")");
+                stake = min(1, data["holdings"][ticker]+0.1)
+                log("[buy_5l_low_at] new stake for " + ticker + ": " + stake);
+            else:
+                # shorting seemingly not supported
+            return;
 
-    if buy_5l_close_at(data)
-    # WRITE YOUR STRATEGY LOGIC HERE
-    return TargetAllocation(allocation_dict)
+        threshold = sell_5h_close_at(data, ticker);
+        if threshold > -1.0:
+            if data["holdings"][ticker] > 0:
+                log("[sell_5h_close_at] selling " + ticker + " at: " + data[-1]["close"] + " (signal threshold: " + threshold + ")");
+                stake = min(1, data["holdings"][ticker]-0.1)
+                log("[sell_5h_close_at] new stake for " + ticker + ": " + stake);
+            else:
+               # shorting seemingly not supported
+            return;
 
-    def get_5h_signal(index=None):
-    if index is None:
-        return KevinStrategy.df['5H']
-    elif index >= len(KevinStrategy.df):
-        return 0
-    else:
-        return KevinStrategy.df['5H'][index]
-
-
-    def get_5l_signal(index=None):
-        if index is None:
-            return KevinStrategy.df['5L']
-        elif index >= len(KevinStrategy.df):
-            return 0
-        else:
-            return KevinStrategy.df['5L'][index]
-
-
-    def get_open(index=None):
-        if index is None:
-            return KevinStrategy.df.Open
-        elif index >= len(KevinStrategy.df):
-            return -1
-        else:
-            return KevinStrategy.df['Open'][index]
-
+         threshold = sell_5h_high_at(data, ticker);
+        if threshold > -1.0:
+            if data["holdings"][ticker] > 0:
+                log("[sell_5h_high_at] selling " + ticker + " at: " + data[-1]["close"] + " (signal threshold: " + threshold + ")");
+                stake = min(1, data["holdings"][ticker]-0.1)
+                log("[sell_5h_high_at] new stake for " + ticker + ": " + stake);
+            else:
+               # shorting seemingly not supported
 
     # trueinrow(C < C1, 5) = 5 and L < L1 and X > L1 + ((H1 - L1) / 2) with X = signal threshold
     def buy_5l_close_at(data, ticker):
