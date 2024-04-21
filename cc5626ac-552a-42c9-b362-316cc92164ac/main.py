@@ -105,8 +105,8 @@ class KevinStrategy(Strategy):
                 return threshold
             else:
                 return -1.0
-    else:
-        return -1.0
+        else:
+            return -1.0
 
     def run(self, data):
         allocation_dict = {i: 1/len(self.tickers) for i in self.tickers}
