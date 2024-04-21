@@ -3,8 +3,7 @@ from surmount.base_class import Strategy, TargetAllocation
 class TradingStrategy(Strategy):
 
     def __init__(self):
-        self.tickers = ["SPY", ...]
-        self.data_list = [...]
+        self.tickers = ["SPY"]
 
     @property
     def interval(self):
@@ -17,10 +16,6 @@ class TradingStrategy(Strategy):
             assets.append(ticker);
             # shorting seemingly not supported
         return assets
-
-    @property
-    def data(self):
-        return self.data_list
 
     # trueinrow(C < C1, 5) = 5 and L < L1 and X > L1 + ((H1 - L1) / 2) with X = signal threshold
     def buy_5l_close_at(data, ticker):
@@ -112,7 +107,7 @@ class TradingStrategy(Strategy):
         allocation_dict = {i: 1/len(self.tickers) for i in self.tickers}
         d = data["ohlcv"]
         for ticker, alloc in allocation_dict:
-            threshold = buy_5l_close_at(data, ticker);
+            threshold = buy_5l_close_at(d, ticker);
             if threshold > -1.0:
                 if data["holdings"][ticker] >= 0:
                     log("[buy_5l_close_at] buy " + ticker + " at: " + data[-1]["close"] + " (signal threshold: " + threshold + ")");
@@ -122,7 +117,7 @@ class TradingStrategy(Strategy):
                 else:
                     # shorting seemingly not supported
                     continue;
-            threshold = buy_5l_low_at(data, ticker);
+            threshold = buy_5l_low_at(d, ticker);
             if threshold > -1.0:
                 if data["holdings"][ticker] >= 0:
                     log("[buy_5l_low_at] buy " + ticker + " at: " + data[-1]["close"] + " (signal threshold: " + threshold + ")");
@@ -133,7 +128,7 @@ class TradingStrategy(Strategy):
                     # shorting seemingly not supported
                     continue;
 
-            threshold = sell_5h_close_at(data, ticker);
+            threshold = sell_5h_close_at(d, ticker);
             if threshold > -1.0:
                 if data["holdings"][ticker] > 0:
                     log("[sell_5h_close_at] sell " + ticker + " at: " + data[-1]["close"] + " (signal threshold: " + threshold + ")");
@@ -144,7 +139,7 @@ class TradingStrategy(Strategy):
                     # shorting seemingly not supported
                     continue;
 
-            threshold = sell_5h_high_at(data, ticker);
+            threshold = sell_5h_high_at(d, ticker);
             if threshold > -1.0:
                 if data["holdings"][ticker] > 0:
                     log("[sell_5h_high_at] sell " + ticker + " at: " + data[-1]["close"] + " (signal threshold: " + threshold + ")");
