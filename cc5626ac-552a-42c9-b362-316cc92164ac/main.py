@@ -118,9 +118,10 @@ class KevinStrategy(Strategy):
                     log("[buy_5l_close_at] buy " + ticker + " at: " + data[-1]["close"] + " (signal threshold: " + threshold + ")");
                     stake = min(1, data["holdings"][ticker]+0.1)
                     log("[buy_5l_close_at] new stake for " + ticker + ": " + stake);
+                    continue;
                 else:
                     # shorting seemingly not supported
-                return;
+                    continue;
 
             threshold = buy_5l_low_at(data, ticker):
             if threshold > -1.0:
@@ -128,9 +129,10 @@ class KevinStrategy(Strategy):
                     log("[buy_5l_low_at] buy " + ticker + " at: " + data[-1]["close"] + " (signal threshold: " + threshold + ")");
                     stake = min(1, data["holdings"][ticker]+0.1)
                     log("[buy_5l_low_at] new stake for " + ticker + ": " + stake);
+                    continue;
                 else:
                     # shorting seemingly not supported
-                return;
+                    continue;
 
             threshold = sell_5h_close_at(data, ticker);
             if threshold > -1.0:
@@ -138,9 +140,10 @@ class KevinStrategy(Strategy):
                     log("[sell_5h_close_at] sell " + ticker + " at: " + data[-1]["close"] + " (signal threshold: " + threshold + ")");
                     stake = min(1, data["holdings"][ticker]-0.1)
                     log("[sell_5h_close_at] new stake for " + ticker + ": " + stake);
+                    continue;
                 else:
-                # shorting seemingly not supported
-                return;
+                    # shorting seemingly not supported
+                    continue;
 
             threshold = sell_5h_high_at(data, ticker);
             if threshold > -1.0:
@@ -148,5 +151,7 @@ class KevinStrategy(Strategy):
                     log("[sell_5h_high_at] sell " + ticker + " at: " + data[-1]["close"] + " (signal threshold: " + threshold + ")");
                     stake = min(1, data["holdings"][ticker]-0.1)
                     log("[sell_5h_high_at] new stake for " + ticker + ": " + stake);
+                    continue;
                 else:
-                # shorting seemingly not supported
+                    # shorting seemingly not supported
+                    continue;
