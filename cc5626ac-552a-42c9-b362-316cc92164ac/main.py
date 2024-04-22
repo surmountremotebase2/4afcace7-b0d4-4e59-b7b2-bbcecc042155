@@ -113,7 +113,7 @@ class TradingStrategy(Strategy):
                 if data["holdings"][ticker] >= 0:
                     log("[buy_5l_close_at] buy " + ticker + " at: " + str(d[-1]["SPY"]["close"]) + " (signal threshold: " + str(threshold) + ")");
                     stake = min(1, data["holdings"][ticker]+0.1)
-                    data["holdings"][ticker] = stake;
+                    TargetAllocation({ticker: stake})
                     log("[buy_5l_close_at] new stake for " + ticker + ": " + str(stake));
                     continue;
                 else:
@@ -125,6 +125,7 @@ class TradingStrategy(Strategy):
                 if data["holdings"][ticker] >= 0:
                     log("[buy_5l_low_at] buy " + ticker + " at: " + str(d[-1]["SPY"]["close"]) + " (signal threshold: " + str(threshold) + ")");
                     stake = min(1, data["holdings"][ticker]+0.1)
+                    TargetAllocation({ticker: stake})
                     log("[buy_5l_low_at] new stake for " + ticker + ": " + str(stake));
                     continue;
                 else:
@@ -136,6 +137,7 @@ class TradingStrategy(Strategy):
                 if data["holdings"][ticker] >= 0:
                     log("[sell_5h_close_at] sell " + ticker + " at: " + str(d[-1]["SPY"]["close"]) + " (signal threshold: " + str(threshold) + ")");
                     stake = min(1, data["holdings"][ticker]-0.1)
+                    TargetAllocation({ticker: stake})
                     log("[sell_5h_close_at] new stake for " + ticker + ": " + str(stake));
                     continue;
                 else:
@@ -147,6 +149,7 @@ class TradingStrategy(Strategy):
                 if data["holdings"][ticker] >= 0:
                     log("[sell_5h_high_at] sell " + ticker + " at: " + str(d[-1]["SPY"]["close"]) + " (signal threshold: " + str(threshold) + ")");
                     stake = min(1, data["holdings"][ticker]-0.1)
+                    TargetAllocation({ticker: stake})
                     log("[sell_5h_high_at] new stake for " + ticker + ": " + str(stake));
                     continue;
                 else:
