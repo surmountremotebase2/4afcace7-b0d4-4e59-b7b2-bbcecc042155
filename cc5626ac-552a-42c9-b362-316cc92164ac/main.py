@@ -104,8 +104,8 @@ class TradingStrategy(Strategy):
             # shorting seemingly not supported
         return assets
 
+    allocation_dict = {0 for i in self.tickers}
     def run(self, data):
-        allocation_dict = {i: 1/len(self.tickers) for i in self.tickers}
         d = data["ohlcv"]
         for ticker in self.tickers:
             threshold = buy_5l_close_at(d, ticker);
