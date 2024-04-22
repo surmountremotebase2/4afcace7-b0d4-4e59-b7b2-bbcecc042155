@@ -112,8 +112,8 @@ class TradingStrategy(Strategy):
             if threshold > -1.0:
                 if data["holdings"][ticker] >= 0:
                     log("[buy_5l_close_at] buy " + ticker + " at: " + str(d[-1]["SPY"]["close"]) + " (signal threshold: " + str(threshold) + ")");
-                    stake = min(1, data["holdings"][ticker]+0.1)
-                    TargetAllocation({ticker: stake})
+                    stake = min(1, data["holdings"][ticker]+0.1);
+                    allocation_dict[ticker] = stake;
                     log("[buy_5l_close_at] new stake for " + ticker + ": " + str(stake));
                     continue;
                 else:
@@ -124,8 +124,8 @@ class TradingStrategy(Strategy):
             if threshold > -1.0:
                 if data["holdings"][ticker] >= 0:
                     log("[buy_5l_low_at] buy " + ticker + " at: " + str(d[-1]["SPY"]["close"]) + " (signal threshold: " + str(threshold) + ")");
-                    stake = min(1, data["holdings"][ticker]+0.1)
-                    TargetAllocation({ticker: stake})
+                    stake = min(1, data["holdings"][ticker]+0.1);
+                    allocation_dict[ticker] = stake;
                     log("[buy_5l_low_at] new stake for " + ticker + ": " + str(stake));
                     continue;
                 else:
@@ -136,8 +136,8 @@ class TradingStrategy(Strategy):
             if threshold > -1.0:
                 if data["holdings"][ticker] > 0:
                     log("[sell_5h_close_at] sell " + ticker + " at: " + str(d[-1]["SPY"]["close"]) + " (signal threshold: " + str(threshold) + ")");
-                    stake = min(1, data["holdings"][ticker]-0.1)
-                    TargetAllocation({ticker: stake})
+                    stake = min(1, data["holdings"][ticker]-0.1);
+                    allocation_dict[ticker] = stake;
                     log("[sell_5h_close_at] new stake for " + ticker + ": " + str(stake));
                     continue;
                 else:
@@ -148,10 +148,11 @@ class TradingStrategy(Strategy):
             if threshold > -1.0:
                 if data["holdings"][ticker] > 0:
                     log("[sell_5h_high_at] sell " + ticker + " at: " + str(d[-1]["SPY"]["close"]) + " (signal threshold: " + str(threshold) + ")");
-                    stake = min(1, data["holdings"][ticker]-0.1)
-                    TargetAllocation({ticker: stake})
+                    stake = min(1, data["holdings"][ticker]-0.1);
+                    allocation_dict[ticker] = stake;
                     log("[sell_5h_high_at] new stake for " + ticker + ": " + str(stake));
                     continue;
                 else:
                     # shorting seemingly not supported
                     continue;
+        return allocation_dict;
