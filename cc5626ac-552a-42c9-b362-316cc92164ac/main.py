@@ -91,7 +91,7 @@ class TradingStrategy(Strategy):
 
     def __init__(self):
         self.tickers = ["SPY"];
-        allocation_dict = {0 for i in self.tickers};
+        self.allocation_dict = {0 for i in self.tickers};
 
     @property
     def interval(self):
