@@ -105,14 +105,13 @@ class TradingStrategy(Strategy):
         return assets
 
     def run(self, data):
-        log(assets);
-        log(str(data["holdings"]["SPY"]));
         allocation_dict = {i: 1/len(self.tickers) for i in self.tickers}
         d = data["ohlcv"]
         for ticker in self.tickers:
             threshold = buy_5l_close_at(d, ticker);
             if threshold > -1.0:
                 if data["holdings"][ticker] >= 0:
+                    log("holdings: " + str(data["holdings"][ticker]));
                     log("[buy_5l_close_at] buy " + ticker + " at: " + str(d[-1]["SPY"]["close"]) + " (signal threshold: " + str(threshold) + ")");
                     stake = min(1, data["holdings"][ticker]+0.1);
                     allocation_dict[ticker] = stake;
