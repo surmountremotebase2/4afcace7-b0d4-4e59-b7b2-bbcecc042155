@@ -91,7 +91,6 @@ class TradingStrategy(Strategy):
 
     def __init__(self):
         self.tickers = ["SPY"];
-        self.allocation_dict = {0 for i in self.tickers};
 
     @property
     def interval(self):
@@ -106,6 +105,7 @@ class TradingStrategy(Strategy):
         return assets
 
     def run(self, data):
+        allocation_dict = {0 for i in self.tickers};
         d = data["ohlcv"]
         for ticker in self.tickers:
             threshold = buy_5l_close_at(d, ticker);
