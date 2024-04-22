@@ -134,7 +134,7 @@ class TradingStrategy(Strategy):
 
             threshold = sell_5h_close_at(d, ticker);
             if threshold > -1.0:
-                if data["holdings"][ticker] >= 0:
+                if data["holdings"][ticker] > 0:
                     log("[sell_5h_close_at] sell " + ticker + " at: " + str(d[-1]["SPY"]["close"]) + " (signal threshold: " + str(threshold) + ")");
                     stake = min(1, data["holdings"][ticker]-0.1)
                     TargetAllocation({ticker: stake})
@@ -146,7 +146,7 @@ class TradingStrategy(Strategy):
 
             threshold = sell_5h_high_at(d, ticker);
             if threshold > -1.0:
-                if data["holdings"][ticker] >= 0:
+                if data["holdings"][ticker] > 0:
                     log("[sell_5h_high_at] sell " + ticker + " at: " + str(d[-1]["SPY"]["close"]) + " (signal threshold: " + str(threshold) + ")");
                     stake = min(1, data["holdings"][ticker]-0.1)
                     TargetAllocation({ticker: stake})
