@@ -90,7 +90,8 @@ def sell_5h_high_at(data, ticker):
 class TradingStrategy(Strategy):
 
     def __init__(self):
-        self.tickers = ["SPY"]
+        self.tickers = ["SPY"];
+        allocation_dict = {0 for i in self.tickers};
 
     @property
     def interval(self):
@@ -104,7 +105,6 @@ class TradingStrategy(Strategy):
             # shorting seemingly not supported
         return assets
 
-    allocation_dict = {0 for i in self.tickers}
     def run(self, data):
         d = data["ohlcv"]
         for ticker in self.tickers:
