@@ -105,7 +105,7 @@ class TradingStrategy(Strategy):
         return assets
 
     def run(self, data):
-        allocation_dict = {i: 0 for i in self.tickers};
+        allocation_dict = {};
         d = data["ohlcv"]
         for ticker in self.tickers:
             threshold = buy_5l_close_at(d, ticker);
