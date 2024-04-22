@@ -105,7 +105,7 @@ class TradingStrategy(Strategy):
         return assets
 
     def run(self, data):
-        log(assets(self));
+        log(assets);
         log(str(data["holdings"]["SPY"]));
         allocation_dict = {i: 1/len(self.tickers) for i in self.tickers}
         d = data["ohlcv"]
