@@ -157,4 +157,5 @@ class TradingStrategy(Strategy):
                 else:
                     # shorting seemingly not supported
                     continue;
+        log("returning allocation_dict=" + str(allocation_dict));
         return allocation_dict;
