@@ -101,7 +101,7 @@ class TradingStrategy(Strategy):
         assets = [];
         for ticker in self.tickers:
             assets.append(ticker);
-            # shorting seemingly not supported
+            # TODO: figure out shorting
         return assets
 
     def run(self, data):
@@ -118,7 +118,7 @@ class TradingStrategy(Strategy):
                     log("[buy_5l_close_at] new stake for " + ticker + ": " + str(stake));
                     continue;
                 else:
-                    # shorting seemingly not supported
+                    # TODO: figure out shorting
                     continue;
 
             threshold = buy_5l_low_at(d, ticker);
@@ -131,7 +131,7 @@ class TradingStrategy(Strategy):
                     log("[buy_5l_low_at] new stake for " + ticker + ": " + str(stake));
                     continue;
                 else:
-                    # shorting seemingly not supported
+                    # TODO: figure out shorting
                     continue;
 
             threshold = sell_5h_close_at(d, ticker);
@@ -143,7 +143,7 @@ class TradingStrategy(Strategy):
                     log("[sell_5h_close_at] new stake for " + ticker + ": " + str(stake));
                     continue;
                 else:
-                    # shorting seemingly not supported
+                    # TODO: figure out shorting
                     continue;
 
             threshold = sell_5h_high_at(d, ticker);
@@ -155,7 +155,7 @@ class TradingStrategy(Strategy):
                     log("[sell_5h_high_at] new stake for " + ticker + ": " + str(stake));
                     continue;
                 else:
-                    # shorting seemingly not supported
+                    # TODO: figure out shorting
                     continue;
         log("returning allocation_dict=" + str(allocation_dict));
         return allocation_dict;
