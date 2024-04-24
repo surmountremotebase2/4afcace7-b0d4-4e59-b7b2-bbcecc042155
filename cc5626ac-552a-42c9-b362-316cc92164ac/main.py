@@ -1,6 +1,8 @@
 from surmount.base_class import Strategy, TargetAllocation
 from surmount.logging import log
 
+__author__ = 'Marco Ellwanger'
+
 # trueinrow(C < C1, 5) = 5 and L < L1 and X > L1 + ((H1 - L1) / 2) with X = signal threshold
 def buy_5l_close_at(data, ticker):
     close1 = data[-2][ticker]["close"]
