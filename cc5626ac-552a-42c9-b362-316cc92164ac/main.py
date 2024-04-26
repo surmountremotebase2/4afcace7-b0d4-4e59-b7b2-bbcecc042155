@@ -92,7 +92,7 @@ def sell_5h_high_at(data, ticker):
 class TradingStrategy(Strategy):
 
     def __init__(self):
-        self.tickers = ["SPY"];
+        self.tickers = ["SPY", "NVDA"];
 
     @property
     def interval(self):
